@@ -17,7 +17,7 @@ RSpec.describe Redis::Lockers::Lock do
     end
 
     it "returns false if lock lease acquire took longer than allowed ttl" do
-      expect(Concurrent).to receive(:monotonic_time).and_return(0, 456_789)
+      expect(Concurrent).to receive(:monotonic_time).and_return(0, 123_456)
       expect(alpha.acquire(REDIS)).to be false
     end
   end

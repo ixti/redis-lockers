@@ -21,7 +21,7 @@ class Redis
       def initialize(key, ttl:)
         @key   = key.to_s
         @ttl   = ttl.to_i
-        @drift = @ttl * 0.01 + 2
+        @drift = @ttl * 0.01 + 2.0
         @nonce = SecureRandom.uuid
       end
 
@@ -30,13 +30,13 @@ class Redis
       # @param redis [Redis] Redis client
       # @return [Boolean] whenever lock was acquired or not.
       def acquire(redis)
-        deadline = timestamp + @ttl + @drift
+        deadline = timestamp + @ttl - @drift
         success  = LOCK_SCRIPT.eval(redis, {
           :keys => [@key],
           :argv => [@nonce, @ttl]
         })
 
-        success && timestamp < deadline || false
+        success && timestamp <= deadline || false
       end
 
       # Release acquired lease.
