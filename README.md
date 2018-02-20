@@ -96,6 +96,12 @@ push git commits and tags, and push the `.gem` file to [rubygems.org][].
 * If we've accepted a patch, feel free to ask for commit access!
 
 
+## See Also
+
+- [Redlock specification](https://redis.io/topics/distlock)
+- [Redlock Ruby implementation](https://github.com/leandromoreira/redlock-rb)
+
+
 ## Copyright
 
 Copyright (c) 2018 Alexey Zapparov, SensorTower Inc.<br>
